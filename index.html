@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- WebGL canvas for shader background -->
   <canvas id="gl-bg-canvas" aria-hidden="true"></canvas>
+  <div class="gl-bg-overlay" aria-hidden="true"></div> 
 
   <header class="site-header">
     <div class="container header-inner">
@@ -60,11 +60,8 @@
       </div>
     </section>
 
-    <!-- Demo / Controls / Gantt markup (keep your existing content) -->
     <section id="demo" class="demo">
-      <!-- Keep same demo markup you already have (controls, gantt container, etc.) -->
-      <!-- ... -->
-    </section>
+      </section>
   </main>
 
   <footer class="site-footer">
@@ -74,10 +71,8 @@
     </div>
   </footer>
 
-  <!-- WebGL shader background controller -->
   <script src="background-gl.js"></script>
 
-  <!-- Theme + UI toggles (merge with your existing theme code if needed) -->
   <script>
   (function() {
     const root = document.documentElement;
@@ -126,7 +121,6 @@
   })();
   </script>
 
-  <!-- Your existing simulator script should come after the background so UI overlays properly -->
   <script src="script.js"></script>
 </body>
 </html>
