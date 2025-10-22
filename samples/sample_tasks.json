@@ -1,0 +1,8 @@
+[
+  { "id": "T1", "arrival": 0, "execution": 30, "deadline": 50, "period": 50, "is_critical": true },
+  { "id": "T2", "arrival": 0, "execution": 20, "deadline": 40, "period": 40, "is_critical": true },
+  { "id": "T3", "arrival": 10, "execution": 25, "deadline": 60, "period": null, "is_critical": false },
+  { "id": "T4", "arrival": 20, "execution": 15, "deadline": 50, "period": null, "is_critical": false },
+  { "id": "T5", "arrival": 5, "execution": 12, "deadline": 40, "period": null, "is_critical": true, "holds_resource": "R1" },
+  { "id": "T6", "arrival": 6, "execution": 6, "deadline": 25, "period": null, "is_critical": true, "needs_resource": "R1" }
+]
