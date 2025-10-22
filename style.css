@@ -274,7 +274,13 @@ body{
 .features article{background:var(--card);padding:14px;border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.04)}
 
 .demo-controls{margin-bottom:10px}
-.gantt-container{min-height:180px;padding:12px;border-radius:8px}
+.gantt-container{
+  min-height:180px;
+  padding:12px;
+  border-radius:8px;
+  /* FIX: Add horizontal scrolling to prevent content overflow */
+  overflow-x: auto; 
+}
 .gantt-placeholder{display:flex;align-items:center;justify-content:center;color:var(--muted);height:140px}
 
 .metrics{margin-top:12px;padding:12px}
@@ -288,6 +294,11 @@ body{
 }
 
 /* SVG Gantt tweaks */
+.gantt-svg {
+  /* Ensure the SVG can grow wider than the container when needed */
+  display: block; 
+  min-width: 100%; 
+}
 .gantt-svg text { fill: var(--muted); }
 :root.dark .gantt-svg text { fill: var(--muted); }
 
@@ -329,6 +340,9 @@ body > *:not(#gl-bg-canvas) { position: relative; z-index: 1; }
 }
 
 /* --- 9. MEDIA QUERIES (Responsiveness) --- */
+@media (prefers-reduced-motion: reduce) {
+  .gl-bg-overlay { animation: none; opacity: 0.06; }
+}
 @media (max-width: 780px){
   .header-inner{flex-direction:column;align-items:flex-start;gap:10px}
   .hero{flex-direction:column}
