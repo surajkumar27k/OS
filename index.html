@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- WebGL canvas for shader background -->
   <canvas id="gl-bg-canvas" aria-hidden="true"></canvas>
+  <!-- FIX: Include the overlay div for the animated gradient effect -->
   <div class="gl-bg-overlay" aria-hidden="true"></div> 
 
   <header class="site-header">
@@ -60,8 +62,71 @@
       </div>
     </section>
 
+    <!-- DEMO SECTION: Must contain all IDs used by script.js -->
     <section id="demo" class="demo">
-      </section>
+        <div class="dashboard">
+            <h3 class="title">Scheduler Simulation Controls</h3>
+
+            <!-- Row 1: Scheduler and Time -->
+            <div class="controls card demo-controls">
+                <div class="row">
+                    <!-- Scheduler Selector -->
+                    <div>
+                        <label for="scheduler-select">Scheduler:</label>
+                        <select id="scheduler-select">
+                            <option value="hybrid">Adaptive Hybrid (RMS/EDF)</option>
+                            <option value="energy-hybrid">Energy-Aware Hybrid (DVFS)</option>
+                            <option value="rms">Rate Monotonic (RMS)</option>
+                            <option value="edf">Earliest Deadline First (EDF)</option>
+                        </select>
+                    </div>
+
+                    <!-- Total Time Input -->
+                    <div>
+                        <label for="total-time">Total Time (Ticks):</label>
+                        <input type="number" id="total-time" value="200" min="50" max="1000">
+                    </div>
+
+                    <!-- Laxity Threshold (for DVFS) -->
+                    <div>
+                        <label for="laxity-threshold">Laxity Threshold:</label>
+                        <input type="number" id="laxity-threshold" value="20" min="5" max="100">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Actions -->
+            <div class="cta sched-btns">
+                <button id="load-sample" class="sched-btn">Load Sample Tasks</button>
+                <button id="run" class="btn">Run Simulation</button>
+                
+                <!-- File Input for Upload -->
+                <input type="file" id="file-input" style="display:none;" accept=".json, .csv">
+                <button id="upload" class="sched-btn ghost">Upload Taskset (.json)</button>
+            </div>
+
+            <!-- Task Display Area (Sample JSON Pre) -->
+            <details class="card" style="text-align: left; margin-top: 20px;">
+                <summary>Current Task Set (Edit JSON directly here or load/upload)</summary>
+                <pre id="sample-json" class="sample-json"></pre>
+            </details>
+        </div>
+
+        <!-- Gantt Chart Output Container -->
+        <div class="card" style="margin-top: 24px;">
+            <h3>Gantt Chart Timeline</h3>
+            <div id="gantt-container" class="gantt-container">
+                <div class="gantt-placeholder">Load tasks and click Run Simulation to see the timeline.</div>
+            </div>
+        </div>
+
+        <!-- Metrics Output Container -->
+        <div id="metrics" class="card" style="display:none; margin-top: 16px;">
+            <!-- Metrics will be inserted here by script.js -->
+        </div>
+    </section>
+    <!-- END DEMO SECTION -->
+
   </main>
 
   <footer class="site-footer">
@@ -71,8 +136,10 @@
     </div>
   </footer>
 
+  <!-- WebGL shader background controller -->
   <script src="background-gl.js"></script>
 
+  <!-- Theme + UI toggles (merge with your existing theme code if needed) -->
   <script>
   (function() {
     const root = document.documentElement;
@@ -121,6 +188,7 @@
   })();
   </script>
 
+  <!-- Your existing simulator script should come after the background so UI overlays properly -->
   <script src="script.js"></script>
 </body>
 </html>
