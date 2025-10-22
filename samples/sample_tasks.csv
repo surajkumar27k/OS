@@ -1,0 +1,7 @@
+id,arrival,execution,deadline,period,is_critical,holds_resource,needs_resource
+T1,0,30,50,50,true,,
+T2,0,20,40,40,true,,
+T3,10,25,60,,false,,
+T4,20,15,50,,false,,
+T5,5,12,40,,true,R1,
+T6,6,6,25,,true,,R1
