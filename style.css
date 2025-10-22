@@ -278,8 +278,9 @@ body{
   min-height:180px;
   padding:12px;
   border-radius:8px;
-  /* FIX: Add horizontal scrolling to prevent content overflow */
-  overflow-x: auto; 
+  /* REINFORCED FIX: Ensure horizontal scrolling works */
+  overflow-x: auto !important; 
+  max-width: 100%; /* Ensure container doesn't overflow parent */
 }
 .gantt-placeholder{display:flex;align-items:center;justify-content:center;color:var(--muted);height:140px}
 
@@ -297,6 +298,7 @@ body{
 .gantt-svg {
   /* Ensure the SVG can grow wider than the container when needed */
   display: block; 
+  /* The SVG is created by JS with hardcoded dimensions, min-width helps it scroll */
   min-width: 100%; 
 }
 .gantt-svg text { fill: var(--muted); }
