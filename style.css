@@ -1,140 +1,51 @@
-:root{
-  /* Light theme variables */
-  --bg: #fbfbfd;
-  --page-bg: linear-gradient(180deg,#f7fbff 0%, var(--bg) 100%);
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #6b7280;
-  --accent: #2563eb;
-  --accent-2: #06b6d4;
-  --muted-border: #e6e6ef;
-  --muted-bg: #fafafa;
-  --danger: #ff6b6b;
-  --radius: 10px;
-  --max-width: 1100px;
-  --container-pad: 20px;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: var(--text);
+/* Add/merge the following into your existing style.css to integrate the GL background
+   (canvas layering, gradient overlay, reduced-motion support, and polish). */
+
+/* Canvas layering and content stacking */
+html, body { height: 100%; }
+#gl-bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
 }
 
-/* Dark theme overrides */
-:root.dark {
-  --bg: #0b1020;
-  --page-bg: linear-gradient(180deg,#07070a 0%, #0b1020 100%);
-  --card: #0f1724;
-  --text: #e6eef8;
-  --muted: #9aa6bf;
-  --accent: #58a6ff;
-  --accent-2: #40e0d0;
-  --muted-border: #15202b;
-  --muted-bg: #08111a;
-  --danger: #ff7b7b;
+/* Ensure content stacks above background canvas */
+body > *:not(#gl-bg-canvas) { position: relative; z-index: 1; }
+
+/* Animated gradient overlay for extra depth */
+.gl-bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+  background: linear-gradient(120deg, rgba(37,99,235,0.12), rgba(6,182,212,0.10), rgba(99,102,241,0.08));
+  animation: glBgShift 14s ease-in-out infinite;
+}
+:root.dark .gl-bg-overlay {
+  opacity: 0.09;
+  background: linear-gradient(120deg, rgba(88,166,255,0.07), rgba(64,224,208,0.06), rgba(90,85,230,0.06));
+}
+@keyframes glBgShift {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6%) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background: var(--page-bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  color:var(--text);
-  transition: background 240ms ease, color 240ms ease;
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gl-bg-overlay { animation: none; opacity: 0.06; }
 }
 
-.container{
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding:var(--container-pad);
-}
-
-.site-header{
-  background: linear-gradient(90deg, rgba(37,99,235,0.95), rgba(6,182,212,0.95));
-  color:white;
-  padding:18px 0;
-  margin-bottom:18px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-.header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.header-left{flex:1}
-.header-right{display:flex;align-items:center;gap:10px}
-
-.project-title{margin:0;font-size:1.25rem;font-weight:700}
-.project-tagline{margin:0.1rem 0 0;font-size:0.9rem;opacity:0.95}
-
-.top-nav a{
-  color:rgba(255,255,255,0.95);
-  margin-left:12px;
-  text-decoration:none;
-  font-weight:600;
-  font-size:0.95rem;
-}
-
-/* Theme toggle */
-.theme-toggle{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:38px;
-  height:38px;
-  border-radius:8px;
-  border:0;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  cursor:pointer;
-  transition: background 160ms ease;
-}
-.theme-toggle:hover{background: rgba(255,255,255,0.12)}
-.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
-
-/* Page layout */
-.hero{display:flex;gap:24px;align-items:stretch;margin:20px 0}
-.hero-left{flex:2}
-.hero-right{flex:1}
-.lead{font-size:1.05rem;color:var(--muted);margin-top:8px}
-
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:16px;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.08);
-  margin-bottom:12px;
-  border: 1px solid var(--muted-border);
-  transition: background 240ms ease, color 240ms ease, border-color 240ms ease;
-}
-.cta{margin-top:16px}
-.btn{
-  display:inline-block;padding:10px 14px;border-radius:8px;background:var(--accent);color:white;text-decoration:none;font-weight:600;margin-right:8px;border:none;cursor:pointer
-}
-.btn.ghost{background:transparent;color:var(--accent);border:2px solid rgba(37,99,235,0.12)}
-
-.features{margin:20px 0}
-.features .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.features article{background:var(--card);padding:14px;border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.04)}
-
-.controls .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.controls label{font-weight:600;color:var(--muted);margin-right:4px}
-.controls input[type="number"], .controls select{padding:6px;border-radius:6px;border:1px solid var(--muted-border);min-width:100px;background:transparent;color:var(--text)}
-
-.demo-controls{margin-bottom:10px}
-.gantt-container{min-height:180px;padding:12px;border-radius:8px}
-.gantt-placeholder{display:flex;align-items:center;justify-content:center;color:var(--muted);height:140px}
-
-.metrics{margin-top:12px;padding:12px}
-.sample-json{white-space:pre-wrap;background:var(--muted-bg);padding:12px;border-radius:6px;border:1px solid var(--muted-border);color:var(--text)}
-
-.site-footer{padding:18px 0;text-align:center;color:var(--muted);font-size:0.95rem;margin-top:24px}
-@media (max-width:780px){
-  .header-inner{flex-direction:column;align-items:flex-start;gap:10px}
-  .hero{flex-direction:column}
-}
-
-/* SVG Gantt tweaks */
+/* Make sure SVG Gantt remains readable on top */
 .gantt-svg text { fill: var(--muted); }
 :root.dark .gantt-svg text { fill: var(--muted); }
+
+/* Small style for theme/background toggle buttons if needed */
+.theme-toggle { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; border:0; background: rgba(255,255,255,0.06); color: white; cursor:pointer; margin-left:8px; }
+:root.dark .theme-toggle { background: rgba(255,255,255,0.06); }
