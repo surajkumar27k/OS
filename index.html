@@ -9,14 +9,25 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <h1 class="project-title">Adaptive Hybrid Scheduler</h1>
-      <p class="project-tagline">Hybrid (RMS + EDF) scheduler with Energy-Aware DVFS simulation for real-time systems</p>
-      <nav class="top-nav">
-        <a href="https://github.com/surajkumar27k/OS" target="_blank" rel="noopener">Repository</a>
-        <a href="#features">Features</a>
-        <a href="#demo">Demo</a>
-        <a href="#run">Run</a>
-      </nav>
+      <div class="header-left">
+        <h1 class="project-title">Adaptive Hybrid Scheduler</h1>
+        <p class="project-tagline">Hybrid (RMS + EDF) scheduler with Energy-Aware DVFS simulation for real-time systems</p>
+      </div>
+
+      <div class="header-right">
+        <nav class="top-nav">
+          <a href="https://github.com/surajkumar27k/OS" target="_blank" rel="noopener">Repository</a>
+          <a href="#features">Features</a>
+          <a href="#demo">Demo</a>
+          <a href="#run">Run</a>
+        </nav>
+
+        <!-- Theme toggle -->
+        <button id="theme-toggle" class="theme-toggle" aria-pressed="false" title="Toggle dark/light theme">
+          <span id="theme-icon">🌙</span>
+          <span class="visually-hidden">Toggle theme</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -122,6 +133,44 @@
       <p><a href="https://github.com/surajkumar27k/OS" target="_blank">GitHub Repository</a></p>
     </div>
   </footer>
+
+  <script>
+    // Theme toggle script
+    (function() {
+      const root = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      const icon = document.getElementById('theme-icon');
+      const KEY = 'site-theme'; // 'light' | 'dark' | 'auto'
+
+      function setTheme(theme) {
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          toggle.setAttribute('aria-pressed', 'true');
+          icon.textContent = '🌙';
+        } else {
+          root.classList.remove('dark');
+          toggle.setAttribute('aria-pressed', 'false');
+          icon.textContent = '☀️';
+        }
+      }
+
+      // determine initial theme: saved -> system preference -> light
+      const saved = localStorage.getItem(KEY);
+      if (saved === 'dark' || saved === 'light') {
+        setTheme(saved);
+      } else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(prefersDark ? 'dark' : 'light');
+      }
+
+      toggle.addEventListener('click', () => {
+        const isDark = root.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        setTheme(newTheme);
+        localStorage.setItem(KEY, newTheme);
+      });
+    })();
+  </script>
 
   <script src="script.js"></script>
 </body>
