@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>RTOS Hybrid Scheduler Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <div class="title">RTOS Hybrid Scheduler Demo</div>
+    <div class="desc">Live RTOS scheduling simulation—add tasks, watch resource usage, and toggle RMS/EDF.</div>
+    <div class="info">Responsive for mobile/desktop. Just upload 3 files to your GitHub repo!</div>
+    <div class="footer">Demo by Your Name, Your Affiliation.<br>Contact: your.email@university.edu</div>
+  </div>
+  <div class="dashboard">
+    <div class="sched-btns">
+      <button class="sched-btn active" id="rmsBtn">RMS</button>
+      <button class="sched-btn" id="edfBtn">EDF</button>
+    </div>
+    <div class="add-proc-wrap">
+      <select class="dropdown" id="procType">
+        <option value="Critical-High-3">Critical, High Priority, 3ms CPU</option>
+        <option value="Non-Critical-Med-2">Non-Critical, Medium Priority, 2ms CPU</option>
+        <option value="Critical-Low-1">Critical, Low Priority, 1ms CPU</option>
+        <option value="Non-Critical-Low-2">Non-Critical, Low Priority, 2ms CPU</option>
+      </select>
+      <button class="add-btn" id="addProcBtn">Add Process</button>
+    </div>
+    <div class="bars">
+      <div class="bar-block">
+        <span class="bar-label">CPU Usage</span>
+        <div class="bar-bg"><div class="bar-fill cpu-color" id="cpuBar"></div></div>
+      </div>
+      <div class="bar-block">
+        <span class="bar-label">Memory Usage</span>
+        <div class="bar-bg"><div class="bar-fill mem-color" id="memBar"></div></div>
+      </div>
+      <div class="bar-block">
+        <span class="bar-label">Disk Space</span>
+        <div class="bar-bg"><div class="bar-fill space-color" id="spaceBar"></div></div>
+      </div>
+    </div>
+    <div class="task-table-wrap">
+      <table class="task-table" id="taskTable">
+        <thead>
+          <tr>
+            <th>PID</th><th>Task</th><th>Type</th><th>Priority</th><th>CPU Time</th><th>State</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="timeline-wrap">
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="dialogue" id="dialogue"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
